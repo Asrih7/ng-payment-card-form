@@ -1,0 +1,149 @@
+<div class="wrapper" id="app">
+    <div class="card-form">
+      <div class="card-list">
+        <div class="card-item" [ngClass]="{ '-active': isCardFlipped }">
+          <!-- Front Side of the Card -->
+          <div class="card-item__side -front">
+            <div class="card-item__focus" [ngClass]="{ '-active': focusElementStyle }" [ngStyle]="focusElementStyle"></div>
+            <div class="card-item__cover">
+                <img [src]="'https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/' + currentCardBackground + '.jpeg'"
+                class="card-item__bg">
+                        </div>
+  
+            <div class="card-item__wrapper">
+              <div class="card-item__top">
+                <img src="https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/chip.png"
+                class="card-item__chip">
+                                <div class="card-item__type">
+                                    <img [src]="'https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/' + getCardType + '.png'"
+                                    class="card-item__typeImg">
+                                                </div>
+              </div>
+  
+              <!-- Card Number Display -->
+              <div class="card-item__number">
+                <ng-container *ngIf="getCardType() === 'amex'">
+                  <ng-container *ngFor="let n of amexCardMask.split(''); let i = index">
+                    <ng-container *ngIf="i > 4 && i < 14 && cardNumber.length > i && n.trim() !== ''">
+                      <div class="card-item__numberItem">*</div>
+                    </ng-container>
+                    <ng-container *ngIf="cardNumber.length > i">
+                      <div class="card-item__numberItem" [ngClass]="{ '-active': n.trim() === '' }">{{cardNumber[i]}}</div>
+                    </ng-container>
+                    <ng-container *ngIf="cardNumber.length <= i">
+                      <div class="card-item__numberItem" [ngClass]="{ '-active': n.trim() === '' }">{{n}}</div>
+                    </ng-container>
+                  </ng-container>
+                </ng-container>
+  
+                <ng-container *ngIf="getCardType() !== 'amex'">
+                  <ng-container *ngFor="let n of otherCardMask.split(''); let i = index">
+                    <ng-container *ngIf="i > 4 && i < 15 && cardNumber.length > i && n.trim() !== ''">
+                      <div class="card-item__numberItem">*</div>
+                    </ng-container>
+                    <ng-container *ngIf="cardNumber.length > i">
+                      <div class="card-item__numberItem" [ngClass]="{ '-active': n.trim() === '' }">{{cardNumber[i]}}</div>
+                    </ng-container>
+                    <ng-container *ngIf="cardNumber.length <= i">
+                      <div class="card-item__numberItem" [ngClass]="{ '-active': n.trim() === '' }">{{n}}</div>
+                    </ng-container>
+                  </ng-container>
+                </ng-container>
+              </div>
+  
+              <!-- Card Holder and Expiration Date -->
+              <div class="card-item__content">
+                <label for="cardName" class="card-item__info">
+                  <div class="card-item__holder">Card Holder</div>
+                  <ng-container *ngIf="cardName.length; else emptyName">
+                    <div class="card-item__name">
+                      <ng-container *ngFor="let n of getFormattedCardName(); let i = index">
+                        <span class="card-item__nameItem">{{n}}</span>
+                      </ng-container>
+                    </div>
+                  </ng-container>
+                  <ng-template #emptyName>
+                    <div class="card-item__name">Full Name</div>
+                  </ng-template>
+                </label>
+                <div class="card-item__date">
+                  <label for="cardMonth" class="card-item__dateTitle">Expires</label>
+                  <label for="cardMonth" class="card-item__dateItem">
+                    <span *ngIf="cardMonth">{{cardMonth}}</span>
+                    <span *ngIf="!cardMonth">MM</span>
+                  </label>
+                  /
+                  <label for="cardYear" class="card-item__dateItem">
+                    <span *ngIf="cardYear">{{cardYear | slice:2}}</span>
+                    <span *ngIf="!cardYear">YY</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+  
+          <!-- Back Side of the Card -->
+          <div class="card-item__side -back">
+            <div class="card-item__cover">
+                <img [src]="'https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/' + currentCardBackground + '.jpeg'"
+                class="card-item__bg">            </div>
+            <div class="card-item__band"></div>
+            <div class="card-item__cvv">
+              <div class="card-item__cvvTitle">CVV</div>
+              <div class="card-item__cvvBand">
+                <span *ngFor="let n of cardCvv.split(''); let i = index">*</span>
+              </div>
+              <div class="card-item__type">
+  <img [src]="'https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/' + getCardType + '.png'"
+                  class="card-item__typeImg">              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Card Form Inputs -->
+      <div class="card-form__inner">
+        <div class="card-input">
+          <label for="cardName" class="card-input__label">Card Name</label>
+          <input type="text" id="cardName" class="card-input__input" [(ngModel)]="cardName" (focus)="focusInput()" (blur)="blurInput()" autocomplete="off">
+        </div>
+        
+        <div class="card-input">
+          <label for="cardNumber" class="card-input__label">Card Number</label>
+          <input type="text" id="cardNumber" class="card-input__input" appCardNumberMask [(ngModel)]="cardNumber" (focus)="focusInput()" (blur)="blurInput()" autocomplete="off">
+        </div>
+  
+        <div class="card-form__row">
+          <div class="card-form__col">
+            <div class="card-form__group">
+              <label for="cardMonth" class="card-input__label">Expiration Date</label>
+              <select class="card-input__input -select" id="cardMonth" [(ngModel)]="cardMonth" (focus)="focusInput()" (blur)="blurInput()">
+                <option value="" disabled selected>Month</option>
+                <option *ngFor="let month of months" [value]="month < 10 ? '0' + month : month" [disabled]="month < minCardMonth">
+                  {{month < 10 ? '0' + month : month}}
+                </option>
+              </select>
+              <select class="card-input__input -select" id="cardYear" [(ngModel)]="cardYear" (focus)="focusInput()" (blur)="blurInput()">
+                <option value="" disabled selected>Year</option>
+                <option *ngFor="let year of years" [value]="year">
+                  {{year}}
+                </option>
+              </select>
+            </div>
+          </div>
+  
+          <div class="card-form__col -cvv">
+            <div class="card-input">
+              <label for="cardCvv" class="card-input__label">CVV</label>
+              <input type="text" class="card-input__input" id="cardCvv" appCvvMask maxlength="4" [(ngModel)]="cardCvv" (focus)="flipCard(true)" (blur)="flipCard(false)" autocomplete="off">
+            </div>
+          </div>
+        </div>
+  
+        <button class="card-form__button" (click)="submitForm()">
+          Submit
+        </button>
+      </div>
+    </div>
+  </div>
+  

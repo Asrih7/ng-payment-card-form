@@ -1,0 +1,51 @@
+{
+  "name": "ng-payment-card-form",
+  "version": "16.0.0",
+  "author": "Soufiane Asrih",
+  "license": "MIT",
+  "keywords": [
+    "angular",
+    "npm",
+    "package",
+    "automation",
+    "bot",
+    "ai",
+    "material",
+    "chat",
+    "javascript",
+    "typescript",
+    "animation",
+    "node",
+    "form",
+    "chatbot",
+    "card",
+    "payment",
+    "mastercard",
+    "gatway",
+    "visa",
+    "ecommerce",
+    "digital"
+  ],
+  "peerDependencies": {
+    "@angular/common": "^17.3.0",
+    "@angular/core": "^17.3.0"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  },
+  "resolutions": {
+    "@types/mime": "3.0.4"
+  },
+  "typesVersions": {
+    "*": {
+      "*": [
+        "*.d.ts"
+      ]
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "sideEffects": false
+}
