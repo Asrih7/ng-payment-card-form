@@ -78,8 +78,15 @@
       
       <div class="card-input">
         <label for="cardNumber" class="card-input__label">Card Number</label>
-        <input type="text" id="cardNumber" class="card-input__input" [(ngModel)]="cardNumber" (input)="formatCardNumber()" (focus)="focusInput()" (blur)="blurInput()" maxlength="19" autocomplete="off">
+        <input type="text" id="cardNumber" class="card-input__input"
+               [(ngModel)]="cardNumber"
+               (input)="formatCardNumber()"
+               (focus)="focusInput()"
+               (blur)="blurInput()"
+               maxlength="19"
+               autocomplete="off">
       </div>
+      
 
       <div class="card-form__row">
         <div class="card-form__col">
@@ -112,6 +119,5 @@
     </div>
   </div>
 </div>
-
 
 

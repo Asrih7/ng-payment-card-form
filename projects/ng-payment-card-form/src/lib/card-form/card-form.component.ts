@@ -60,18 +60,21 @@ export class CardFormComponent implements OnInit {
     }
     return ''; 
   }
-
   formatCardNumber(): void {
+    if (this.cardNumber === '#### #### #### ####' || this.cardNumber === '') {
+      return; // Do not format if placeholder or empty
+    }
+  
     let value = this.cardNumber.replace(/\D/g, ''); 
     const cardType = this.getCardType();
     let formattedValue = '';
     let mask = this.getMaskForCardType(cardType);
     let maxLength = mask.replace(/[^#]/g, '').length;
-  
+    
     if (value.length > maxLength) {
       value = value.substring(0, maxLength);
     }
-  
+    
     let maskIndex = 0;
     for (let i = 0; i < value.length && maskIndex < mask.length; i++) {
       if (mask[maskIndex] === '#') {
@@ -86,6 +89,7 @@ export class CardFormComponent implements OnInit {
     this.updateCardType(); 
     this.updateCardNumberPattern(); 
   }
+  
 
   getMaskForCardType(cardType: string): string {
     switch (cardType) {
@@ -103,14 +107,21 @@ export class CardFormComponent implements OnInit {
   }
 
   focusInput(): void {
+    if (this.cardNumber === '#### #### #### ####') {
+      this.cardNumber = ''; // Clear placeholder on focus
+    }
     this.isInputFocused = true;
     this.updateFocusElementStyle();
   }
-
+  
   blurInput(): void {
+    if (this.cardNumber === '') {
+      this.cardNumber = '#### #### #### ####'; // Restore placeholder if no input
+    }
     this.isInputFocused = false;
     this.updateFocusElementStyle();
   }
+  
 
   private updateFocusElementStyle(): void {
     this.focusElementStyle = this.isInputFocused ? { border: '2px solid blue' } : null;

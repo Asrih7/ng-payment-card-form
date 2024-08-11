@@ -222,7 +222,6 @@ body {
     left: 0;
     top: 0;
     width: 100%;
-    border-radius: 15px;
     overflow: hidden;
     &:after {
       content: "";
@@ -508,6 +507,7 @@ body {
     width: 100%;
     display: block;
     user-select: none;
+    font-family: Source Code Pro, monospace;
   }
   &__input {
     width: 100%;
