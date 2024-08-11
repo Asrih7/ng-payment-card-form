@@ -32,18 +32,25 @@ export class CardFormComponent implements OnInit {
       amex: /^3[47][0-9]{13}$/,
       visa: /^4[0-9]{12}(?:[0-9]{3})?$/,
       mastercard: /^5[1-5][0-9]{14}$/,
-      discover: /^6(?:011|5[0-9]{2})[0-9]{12}$/,
+      discover: /^6(?:011|5[0-9]{2})[0-9]{12}$/
     };
-  
-    for (const [type, pattern] of Object.entries(cardPatterns)) {
+
+    for (const [card, pattern] of Object.entries(cardPatterns)) {
       if (pattern.test(number)) {
-        return type;
+        return card;
       }
     }
-    return 'visa'; // default type
-  }
-  
 
+    return 'default';
+  } 
+  
+  getCardBackgroundUrl(): string {
+    return `https://raw.githubusercontent.com/Asrih7/ng-payment-card-form/main/projects/ng-payment-card-form/src/assets/images/${this.currentCardBackground}.jpeg`;
+  }
+
+  getCardTypeUrl(): string {
+    return `https://raw.githubusercontent.com/Asrih7/ng-payment-card-form/main/projects/ng-payment-card-form/src/assets/images/${this.getCardType()}.png`;
+  }
   focusInput(): void {
     this.isInputFocused = true;
     this.updateFocusElementStyle();

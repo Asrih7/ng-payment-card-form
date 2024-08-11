@@ -1,6 +1,6 @@
 {
   "name": "ng-payment-card-form",
-  "version": "16.0.0",
+  "version": "17.0.2",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -76,6 +76,6 @@
   },
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/Asrih7/ng-payment-card-form"
   }
 }

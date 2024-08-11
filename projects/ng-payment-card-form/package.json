@@ -1,6 +1,6 @@
 {
   "name": "ng-payment-card-form",
-  "version": "16.0.0",
+  "version": "17.0.2",
   "author": "Soufiane Asrih",
   "license": "MIT",
   "keywords": [
@@ -31,6 +31,7 @@
     "@angular/core": "^17.3.0"
   },
   "dependencies": {
+    "ng-payment-card-form": "file:",
     "tslib": "^2.3.0"
   },
   "resolutions": {
@@ -45,7 +46,7 @@
   },
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/Asrih7/ng-payment-card-form"
   },
   "sideEffects": false
 }
